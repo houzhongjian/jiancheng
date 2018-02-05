@@ -1,25 +1,24 @@
 package main
 
 import (
-	"html/template"
 	"log"
-	"net/http"
+
+	"github.com/houzhongjian/jiancheng/conf"
+	"github.com/houzhongjian/jiancheng/db"
 )
 
 func main() {
-	http.HandleFunc("/", HandleDefault)
-	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./frontend/css"))))
-	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("./frontend/js"))))
-	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("./frontend/images"))))
-	http.ListenAndServe(":8080", nil)
-}
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+	//初始化配置.
+	conf.ConfInit()
+	log.Println("website port :", conf.Conf.WebsitePost)
+	log.Println("db name :", conf.Conf.DbName)
+	log.Println("db user :", conf.Conf.DbUser)
+	log.Println("db port :", conf.Conf.DbPort)
+	log.Println("db pass :", conf.Conf.DbPassword)
 
-//HandleDefault .
-func HandleDefault(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("./frontend/index.html")
-	if err != nil {
-		log.Printf("%+v\n", err)
-		return
-	}
-	t.Execute(w, nil)
+	//连接数据库.
+	db.DbInit()
+	//路由.
+	HttpServer()
 }
