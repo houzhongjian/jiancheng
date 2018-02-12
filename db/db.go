@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/houzhongjian/jiancheng/base"
 	cf "github.com/houzhongjian/jiancheng/conf"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
@@ -22,4 +23,10 @@ func DbInit() {
 	db.SingularTable(true)
 
 	Db = db
+}
+
+func AutoMig() {
+	Db.AutoMigrate(
+		&base.User{},
+	)
 }
