@@ -16,6 +16,7 @@ func HttpServer() {
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./frontend/css"))))
 	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("./frontend/js"))))
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("./frontend/images"))))
+	http.Handle("/fonts/", http.StripPrefix("/fonts/", http.FileServer(http.Dir("./frontend/fonts"))))
 	http.HandleFunc("/dashboard", filter.Validate(service.HandleDashboard))
 	http.HandleFunc("/login", service.HandleLogin)
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", conf.Conf.WebsitePost), nil); err != nil {
