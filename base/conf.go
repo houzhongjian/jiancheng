@@ -8,4 +8,5 @@ type Conf struct {
 	DbUser      string `json:"db_user"`
 	DbPassword  string `json:"db_password"`
 	WebsitePost string `json:"website_port"`
+	Domain      string `json:"domain"`
 }

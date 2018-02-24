@@ -10,7 +10,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
-var Db *gorm.DB
+var JcDB *gorm.DB
 
 //DbInit 初始化数据库.
 func DbInit() {
@@ -21,12 +21,15 @@ func DbInit() {
 		return
 	}
 	db.SingularTable(true)
+	JcDB = db
 
-	Db = db
+	//自动创建数据表.
+	AutoMigrate()
 }
 
-func AutoMig() {
-	Db.AutoMigrate(
+//AutoMigrate 自动创建数据表.
+func AutoMigrate() {
+	JcDB.AutoMigrate(
 		&base.User{},
 	)
 }
