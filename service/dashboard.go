@@ -10,7 +10,6 @@ import (
 //HandleDashboard 控制台.
 func HandleDashboard(w http.ResponseWriter, r *http.Request) {
 	log.Println("HandleDashboard")
-
 	t, err := utils.Display("admin-index")
 	if err != nil {
 		log.Printf("%+v\n", err)

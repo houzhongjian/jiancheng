@@ -4,6 +4,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/houzhongjian/jiancheng/base"
+	"github.com/houzhongjian/jiancheng/db"
 	"github.com/houzhongjian/jiancheng/utils"
 )
 
@@ -15,5 +17,11 @@ func HandleMenu(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%+v\n", err)
 		return
 	}
-	t.Execute(w, nil)
+	list := []*base.Menu{}
+	err = db.JcDB.Model(&base.Menu{}).Order("sort desc").Find(&list).Error
+	if err != nil {
+		log.Printf("%+v\n", err)
+		return
+	}
+	t.Execute(w, map[string]interface{}{"list": list})
 }
