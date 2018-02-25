@@ -17,8 +17,10 @@ func HttpServer() {
 	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("./frontend/js"))))
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("./frontend/images"))))
 	http.Handle("/fonts/", http.StripPrefix("/fonts/", http.FileServer(http.Dir("./frontend/fonts"))))
-	http.HandleFunc("/dashboard", filter.Validate(service.HandleDashboard))
+	http.Handle("/tables/", http.StripPrefix("/tables/", http.FileServer(http.Dir("./frontend/tables"))))
 	http.HandleFunc("/login", service.HandleLogin)
+	http.HandleFunc("/dashboard", filter.Validate(service.HandleDashboard))
+	http.HandleFunc("/menu", filter.Validate(service.HandleMenu))
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", conf.Conf.WebsitePost), nil); err != nil {
 		log.Printf("%+v\n", "端口监听失败")
 	}
