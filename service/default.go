@@ -4,7 +4,10 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/houzhongjian/jiancheng/base"
+	"github.com/houzhongjian/jiancheng/db"
 	"github.com/houzhongjian/jiancheng/utils"
+	"github.com/jinzhu/gorm"
 )
 
 //HandleDefault .
@@ -14,5 +17,11 @@ func HandleDefault(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%+v\n", err)
 		return
 	}
-	t.Execute(w, nil)
+	menu := []*base.Menu{}
+	err = db.JcDB.Model(&base.Menu{}).Where("is_show = ?", true).Order("sort desc").Find(&menu).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		log.Printf("%+v\n", err)
+		return
+	}
+	t.Execute(w, map[string]interface{}{"menu": menu})
 }

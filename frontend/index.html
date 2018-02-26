@@ -66,7 +66,10 @@
 							<li class="active">
 								<a href="index.html">首页</a>
 							</li>
-							<li>
+							{{range .menu}}
+								<li><a href="?menu}">{{.Name}}</a></li>
+							{{end}}
+							<!-- <li>
 								<a href="#">学历提升</a>
 							</li>
 							<li>
@@ -80,7 +83,7 @@
 							</li>
 							<li>
 								<a href="#">关于我们</a>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 				</div>
