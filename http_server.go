@@ -18,12 +18,16 @@ func HttpServer() {
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("./frontend/images"))))
 	http.Handle("/fonts/", http.StripPrefix("/fonts/", http.FileServer(http.Dir("./frontend/fonts"))))
 	http.Handle("/tables/", http.StripPrefix("/tables/", http.FileServer(http.Dir("./frontend/tables"))))
+	http.Handle("/lib/", http.StripPrefix("/lib/", http.FileServer(http.Dir("./frontend/lib"))))
 	http.HandleFunc("/login", service.HandleLogin)
 	http.HandleFunc("/backend/dashboard", filter.Validate(service.HandleDashboard))
 	http.HandleFunc("/backend/menu", filter.Validate(service.HandleMenu))
 	http.HandleFunc("/backend/menu/add", filter.Validate(service.HandleMenuAdd))
 	http.HandleFunc("/backend/menu/edit", filter.Validate(service.HandleMenuEdit))
 	http.HandleFunc("/backend/menu/del", filter.Validate(service.HandleMenuDel))
+	http.HandleFunc("/backend/article", filter.Validate(service.HandleArticle))
+	http.HandleFunc("/backend/article/add", filter.Validate(service.HandleArticleAdd))
+	http.HandleFunc("/backend/article/del", filter.Validate(service.HandleArticleDel))
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", conf.Conf.WebsitePost), nil); err != nil {
 		log.Printf("%+v\n", "端口监听失败")
 	}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>建程教育控制台</title>
+
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/datepicker3.css" rel="stylesheet">
+<link href="/css/styles.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/editormd.min.css" />
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><span></span>建程教育</a>
+				<ul class="user-menu">
+					<li class="dropdown pull-right">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 管理员 <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="/user/password"><span class="glyphicon glyphicon-user"></span> 修改密码</a></li>
+							<!-- <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li> -->
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /.container-fluid -->
+	</nav>
+
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<form role="search">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Search">
+			</div>
+		</form>
+		<ul class="nav menu">
+			<li><a href="/backend/dashboard"><span class="glyphicon glyphicon-dashboard"></span>控制台</a></li>
+			<li><a href="/backend/menu"><span class="glyphicon glyphicon-th"></span>栏目管理</a></li>
+			<li class="active"><a href="/backend/article"><span class="glyphicon glyphicon-file"></span>文章管理</a></li>
+			<li><a href="/backend/banner"><span class="glyphicon glyphicon-picture"></span>广告管理</a></li>
+			<!-- <li><a href="widgets.html"><span class="glyphicon glyphicon-th"></span> Widgets</a></li>
+			<li><a href="charts.html"><span class="glyphicon glyphicon-stats"></span> Charts</a></li>
+			<li><a href="tables.html"><span class="glyphicon glyphicon-list-alt"></span> Tables</a></li>
+			<li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> Forms</a></li>
+			<li><a href="panels.html"><span class="glyphicon glyphicon-info-sign"></span> Alerts &amp; Panels</a></li> -->
+			<li class="parent ">
+				<a href="#">
+					<span class="glyphicon glyphicon-list"></span> Dropdown <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="glyphicon glyphicon-s glyphicon-plus"></em></span>
+				</a>
+				<ul class="children collapse" id="sub-item-1">
+					<li>
+						<a class="" href="#">
+							<span class="glyphicon glyphicon-share-alt"></span> Sub Item 1
+						</a>
+					</li>
+					<li>
+						<a class="" href="#">
+							<span class="glyphicon glyphicon-share-alt"></span> Sub Item 2
+						</a>
+					</li>
+					<li>
+						<a class="" href="#">
+							<span class="glyphicon glyphicon-share-alt"></span> Sub Item 3
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li role="presentation" class="divider"></li>
+			<li><a href="login.html"><span class="glyphicon glyphicon-user"></span> Login Page</a></li>
+		</ul>
+	</div><!--/.sidebar-->
+
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row" style="margin-bottom:10px;">
+			<ol class="breadcrumb">
+				<li><a href="/backend/dashboard"><span class="glyphicon glyphicon-home"></span></a></li>
+				<li><a href="/backend/article">文章管理</a></li>
+				<li class="active">添加文章</li>
+			</ol>
+		</div><!--/.row-->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<!-- <div class="panel-heading">添加栏目</div> -->
+					<div class="panel-body">
+						<div class="col-md-12">
+							<form role="form">
+								<div class="form-group">
+									<label>标题</label>
+									<input name="title" id="title" class="form-control" placeholder="标题">
+								</div>
+								<div class="form-group">
+									<label>作者</label>
+									<input name="author" id="author" class="form-control" placeholder="作者">
+								</div>
+								<div class="form-group">
+									<label>关键字</label>
+									<input name="keyword" id="keyword" class="form-control" placeholder="关键字用逗号分隔">
+								</div>
+								<div class="form-group">
+									<label>描述</label>
+									<textarea style="resize: none;" class="form-control" name="description" id="description" rows="3"></textarea>
+									<!-- <input name="description" id="description" class="form-control" placeholder="关键字用逗号分隔"> -->
+								</div>
+								<div class="form-group">
+									<label>所属栏目</label>
+									<select class="form-control">
+										{{range .menu}}
+											<option value="{{.Id}}">{{.Name}}</option>
+										{{end}}
+									</select>
+									<!-- <textarea style="resize: none;" class="form-control" name="description" id="description" rows="3"></textarea> -->
+									<!-- <input name="description" id="description" class="form-control" placeholder="关键字用逗号分隔"> -->
+								</div>
+								<div class="form-group">
+									<label>文章内容</label>
+									<div id="editormd">
+									    <textarea style="display:none;" id="content">### 建程教育</textarea>
+									</div>
+								</div>
+								<button type="button" id="button" class="btn btn-primary">添加</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div><!-- /.col-->
+		</div><!-- /.row -->
+
+	</div>	<!--/.main-->
+
+	<script src="/js/jquery-1.11.1.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/chart.min.js"></script>
+	<script src="/js/chart-data.js"></script>
+	<script src="/js/easypiechart.js"></script>
+	<script src="/js/easypiechart-data.js"></script>
+	<script src="/js/bootstrap-datepicker.js"></script>
+	<script src="/js/axios.min.js"></script>
+	<script src="/js/editormd.min.js"></script>
+	<script>
+		$('#calendar').datepicker({
+		});
+
+		!function ($) {
+		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){
+		        $(this).find('em:first').toggleClass("glyphicon-minus");
+		    });
+		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script>
+	<script type="text/javascript">
+    $(function() {
+        var editor = editormd("editormd", {
+            path : "/js/lib/", // Autoload modules mode, codemirror, marked... dependents libs path
+			height:"1000",
+        });
+
+        /*
+        // or
+        var editor = editormd({
+            id   : "editormd",
+            path : "../lib/"
+        });
+        */
+    });
+</script>
+
+	<script>
+		$(function(){
+			$('#button').on('click', function(){
+				var obj = {title:$("#title").val(), author:$("#author").val(), keyword:$('#keyword').val(), description:$("#description").val(), content:$('#content').val()}
+				axios.post("/backend/article/add", obj).then((res)=>{
+	                if (res.data.msg == "添加成功") {
+	                    alert("添加成功")
+	                    window.location.href="/backend/article"
+	                } else {
+	                    alert(res.data.msg)
+	                }
+	            }).catch((err)=>{
+	                alert(err.data.msg)
+	            })
+			})
+		})
+	</script>
+</body>
+
+</html>

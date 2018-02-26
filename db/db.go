@@ -33,5 +33,6 @@ func AutoMigrate() {
 	JcDB.AutoMigrate(
 		&base.User{},
 		&base.Menu{},
+		&base.Article{},
 	)
 }
