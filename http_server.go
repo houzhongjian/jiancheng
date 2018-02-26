@@ -19,11 +19,11 @@ func HttpServer() {
 	http.Handle("/fonts/", http.StripPrefix("/fonts/", http.FileServer(http.Dir("./frontend/fonts"))))
 	http.Handle("/tables/", http.StripPrefix("/tables/", http.FileServer(http.Dir("./frontend/tables"))))
 	http.HandleFunc("/login", service.HandleLogin)
-	http.HandleFunc("/dashboard", filter.Validate(service.HandleDashboard))
-	http.HandleFunc("/menu", filter.Validate(service.HandleMenu))
-	http.HandleFunc("/menu/add", filter.Validate(service.HandleMenuAdd))
-	http.HandleFunc("/menu/edit", filter.Validate(service.HandleMenuEdit))
-	http.HandleFunc("/menu/del", filter.Validate(service.HandleMenuDel))
+	http.HandleFunc("/backend/dashboard", filter.Validate(service.HandleDashboard))
+	http.HandleFunc("/backend/menu", filter.Validate(service.HandleMenu))
+	http.HandleFunc("/backend/menu/add", filter.Validate(service.HandleMenuAdd))
+	http.HandleFunc("/backend/menu/edit", filter.Validate(service.HandleMenuEdit))
+	http.HandleFunc("/backend/menu/del", filter.Validate(service.HandleMenuDel))
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", conf.Conf.WebsitePost), nil); err != nil {
 		log.Printf("%+v\n", "端口监听失败")
 	}

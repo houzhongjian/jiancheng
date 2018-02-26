@@ -48,10 +48,10 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li><a href="/dashboard"><span class="glyphicon glyphicon-dashboard"></span>控制台</a></li>
-			<li  class="active"><a href="/menu"><span class="glyphicon glyphicon-th"></span>栏目管理</a></li>
-			<li><a href="/article"><span class="glyphicon glyphicon-file"></span>文章管理</a></li>
-			<li><a href="/banner"><span class="glyphicon glyphicon-picture"></span>广告管理</a></li>
+			<li><a href="/backend/dashboard"><span class="glyphicon glyphicon-dashboard"></span>控制台</a></li>
+			<li  class="active"><a href="/backend/menu"><span class="glyphicon glyphicon-th"></span>栏目管理</a></li>
+			<li><a href="/backend/article"><span class="glyphicon glyphicon-file"></span>文章管理</a></li>
+			<li><a href="/backend/banner"><span class="glyphicon glyphicon-picture"></span>广告管理</a></li>
 			<!-- <li><a href="widgets.html"><span class="glyphicon glyphicon-th"></span> Widgets</a></li>
 			<li><a href="charts.html"><span class="glyphicon glyphicon-stats"></span> Charts</a></li>
 			<li><a href="tables.html"><span class="glyphicon glyphicon-list-alt"></span> Tables</a></li>
@@ -87,8 +87,8 @@
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row" style="margin-bottom:10px;">
 			<ol class="breadcrumb">
-				<li><a href="/dashboard"><span class="glyphicon glyphicon-home"></span></a></li>
-				<li><a href="/menu">栏目管理</a></li>
+				<li><a href="/backend/dashboard"><span class="glyphicon glyphicon-home"></span></a></li>
+				<li><a href="/backend/menu">栏目管理</a></li>
 				<li class="active">添加栏目</li>
 			</ol>
 		</div><!--/.row-->
@@ -180,10 +180,10 @@
 				}
 				obj.sort = parseInt(obj.sort)
 				obj.id = parseInt(obj.id)
-				axios.post("/menu/edit", obj).then((res)=>{
+				axios.post("/backend/menu/edit", obj).then((res)=>{
 	                if (res.data.msg == "更新成功") {
 	                    alert("更新成功")
-	                    window.location.href="/menu"
+	                    window.location.href="/backend/menu"
 	                } else {
 	                    alert("更新失败")
 	                }
