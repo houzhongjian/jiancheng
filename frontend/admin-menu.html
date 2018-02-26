@@ -126,7 +126,7 @@
                                              <td>{{.Update}}</td>
                                              <td>
 												 <a href="/menu/edit?id={{.Id}}" class="btn btn-primary btn-xs">编辑</a>
-												 <button class="btn btn-danger btn-xs">删除</button>
+												 <button class="btn btn-danger btn-xs del" idval="{{.Id}}">删除</button>
 											 </td>
                                         </tr>
                                         {{end}}
@@ -148,6 +148,7 @@
 	<script src="/js/easypiechart.js"></script>
 	<script src="/js/easypiechart-data.js"></script>
 	<script src="/js/bootstrap-datepicker.js"></script>
+	<script src="/js/axios.min.js"></script>
 	<script>
 		$('#calendar').datepicker({
 		});
@@ -164,6 +165,26 @@
 		})
 		$(window).on('resize', function () {
 		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script>
+	<script>
+		$(function(){
+			$('.del').on("click", function(){
+				var id = $(this).attr("idval")
+				var obj = {id:parseInt(id)}
+				if(confirm("确认删除吗？")){
+				   	axios.post("/menu/del", obj).then((res)=>{
+						if (res.data.msg == "删除成功") {
+							alert("删除成功")
+							window.location.href = "/menu"
+						} else {
+							alert(res.data.msg)
+						}
+					}).catch((err)=>{
+						alert(err.data.msg)
+					})
+				}
+			})
 		})
 	</script>
 </body>

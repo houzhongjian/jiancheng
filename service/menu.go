@@ -107,3 +107,23 @@ func HandleMenuEdit(w http.ResponseWriter, r *http.Request) {
 	}
 	t.Execute(w, menu)
 }
+
+//HandleMenuDel 删除栏目.
+func HandleMenuDel(w http.ResponseWriter, r *http.Request) {
+	log.Println("HandleMenuDel")
+	menu := base.Menu{}
+	if err := utils.BindJSON(r, &menu); err != nil {
+		log.Printf("%+v\n", err)
+		utils.Response(w, "删除失败")
+		return
+	}
+
+	err := db.JcDB.Model(&base.Menu{}).Delete(&menu).Error
+	if err != nil {
+		log.Printf("%+v\n", err)
+		utils.Response(w, "删除失败")
+		return
+	}
+
+	utils.Response(w, "删除成功")
+}
