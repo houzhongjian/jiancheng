@@ -74,12 +74,13 @@ func HandleMenuEdit(w http.ResponseWriter, r *http.Request) {
 			log.Printf("%+v\n", err)
 			return
 		}
-		log.Println(menu)
+		log.Printf("%+v\n", menu)
 		if len(menu.Name) < 1 {
 			utils.Response(w, "栏目名称不能为空")
 			return
 		}
-		err := db.JcDB.Model(&base.Menu{}).Where("id = ?", menu.Id).Updates(&menu).Error
+		data := map[string]interface{}{"name": menu.Name, "sort": menu.Sort, "is_show": menu.IsShow}
+		err := db.JcDB.Model(&base.Menu{}).Where("id = ?", menu.Id).Updates(data).Error
 		if err != nil {
 			log.Printf("%+v\n", err)
 			utils.Response(w, "更新失败")

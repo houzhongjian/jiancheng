@@ -21,6 +21,7 @@ func DbInit() {
 		return
 	}
 	db.SingularTable(true)
+	db.LogMode(true)
 	JcDB = db
 
 	//自动创建数据表.
