@@ -11,6 +11,8 @@ import (
 	"net/http"
 )
 
+const TIMEFORMAT = "2006-01-02 15:04:05"
+
 //Display 分配视图.
 func Display(name string) (*template.Template, error) {
 	t, err := template.ParseFiles(fmt.Sprintf("./frontend/%s.html", name))

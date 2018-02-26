@@ -21,6 +21,8 @@ func HttpServer() {
 	http.HandleFunc("/login", service.HandleLogin)
 	http.HandleFunc("/dashboard", filter.Validate(service.HandleDashboard))
 	http.HandleFunc("/menu", filter.Validate(service.HandleMenu))
+	http.HandleFunc("/menu/add", filter.Validate(service.HandleMenuAdd))
+	http.HandleFunc("/menu/edit", filter.Validate(service.HandleMenuEdit))
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", conf.Conf.WebsitePost), nil); err != nil {
 		log.Printf("%+v\n", "端口监听失败")
 	}
