@@ -120,7 +120,7 @@
 								</div>
 								<div class="form-group">
 									<label>所属栏目</label>
-									<select class="form-control">
+									<select class="form-control" id="menu_id">
 										{{range .menu}}
 											<option value="{{.Id}}">{{.Name}}</option>
 										{{end}}
@@ -191,7 +191,7 @@
 	<script>
 		$(function(){
 			$('#button').on('click', function(){
-				var obj = {title:$("#title").val(), author:$("#author").val(), keyword:$('#keyword').val(), description:$("#description").val(), content:$('#content').val()}
+				var obj = {title:$("#title").val(), author:$("#author").val(), keyword:$('#keyword').val(), description:$("#description").val(), content:$('#content').val(), menu_id:parseInt($('#menu_id').val())}
 				axios.post("/backend/article/add", obj).then((res)=>{
 	                if (res.data.msg == "添加成功") {
 	                    alert("添加成功")

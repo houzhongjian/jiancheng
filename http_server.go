@@ -28,6 +28,7 @@ func HttpServer() {
 	http.HandleFunc("/backend/article", filter.Validate(service.HandleArticle))
 	http.HandleFunc("/backend/article/add", filter.Validate(service.HandleArticleAdd))
 	http.HandleFunc("/backend/article/del", filter.Validate(service.HandleArticleDel))
+	http.HandleFunc("/backend/banner", filter.Validate(service.HandleBanner))
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", conf.Conf.WebsitePost), nil); err != nil {
 		log.Printf("%+v\n", "端口监听失败")
 	}
