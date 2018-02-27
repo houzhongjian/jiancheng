@@ -49,6 +49,8 @@ func HandleBannerAdd(w http.ResponseWriter, r *http.Request) {
 			utils.Response(w, "添加失败")
 			return
 		}
+
+		utils.Response(w, "添加成功")
 		return
 	}
 	t, err := utils.Display("admin-banner-add")

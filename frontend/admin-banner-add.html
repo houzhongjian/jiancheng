@@ -130,6 +130,7 @@
                                     <br/>
                                     <button type="button" class="btn btn-primary" id="uploadPic">点击上传图片</button>
                                     <div id="appendImg" style="margin-top:20px"></div>
+                                    <input name="img" id="img" type="hidden"></div>
                                 </div>
 								<button type="button" id="button" class="btn btn-primary">添加</button>
 							</div>
@@ -175,17 +176,17 @@
 	<script>
 		$(function(){
 			$('#button').on('click', function(){
-				var obj = {name:$("#name").val(), sort:$("#sort").val(), is_show:$('input:radio[name="is_show"]:checked').val()}
+				var obj = {img:$('#img').val(), description:$('#description').val(), path:$("#path").val(), sort:$("#sort").val(), is_show:$('input:radio[name="is_show"]:checked').val()}
 				if (obj.is_show == "true") {
 					obj.is_show = true
 				} else {
 					obj.is_show = false
 				}
 				obj.sort = parseInt(obj.sort)
-				axios.post("/backend/menu/add", obj).then((res)=>{
+				axios.post("/backend/banner/add", obj).then((res)=>{
 	                if (res.data.msg == "添加成功") {
 	                    alert("添加成功")
-	                    window.location.href="/backend/menu"
+	                    window.location.href="/backend/banner"
 	                } else {
 	                    alert("添加失败")
 	                }
@@ -209,6 +210,7 @@
                             alert("上传成功")
                             $('#appendImg').append("<img src="+data.msg.path+" width='100'>")
                             $('#uploadPic').css("display", "none")
+                            $("#img").val(data.msg.path)
                         } else {
                             alert("上传失败")
                         }
