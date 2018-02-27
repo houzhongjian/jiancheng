@@ -19,6 +19,7 @@ func HttpServer() {
 	http.Handle("/fonts/", http.StripPrefix("/fonts/", http.FileServer(http.Dir("./frontend/fonts"))))
 	http.Handle("/tables/", http.StripPrefix("/tables/", http.FileServer(http.Dir("./frontend/tables"))))
 	http.Handle("/lib/", http.StripPrefix("/lib/", http.FileServer(http.Dir("./frontend/lib"))))
+	http.Handle("/upload/", http.StripPrefix("/upload/", http.FileServer(http.Dir("./frontend/upload"))))
 	http.HandleFunc("/login", service.HandleLogin)
 	http.HandleFunc("/backend/dashboard", filter.Validate(service.HandleDashboard))
 	http.HandleFunc("/backend/menu", filter.Validate(service.HandleMenu))
@@ -29,6 +30,8 @@ func HttpServer() {
 	http.HandleFunc("/backend/article/add", filter.Validate(service.HandleArticleAdd))
 	http.HandleFunc("/backend/article/del", filter.Validate(service.HandleArticleDel))
 	http.HandleFunc("/backend/banner", filter.Validate(service.HandleBanner))
+	http.HandleFunc("/backend/banner/add", filter.Validate(service.HandleBannerAdd))
+	http.HandleFunc("/upload", filter.Validate(service.HandleUpload))
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", conf.Conf.WebsitePost), nil); err != nil {
 		log.Printf("%+v\n", "端口监听失败")
 	}

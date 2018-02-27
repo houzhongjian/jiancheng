@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>建程教育控制台</title>
+
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/datepicker3.css" rel="stylesheet">
+<link href="/css/styles.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><span></span>建程教育</a>
+				<ul class="user-menu">
+					<li class="dropdown pull-right">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 管理员 <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="/user/password"><span class="glyphicon glyphicon-user"></span> 修改密码</a></li>
+							<!-- <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li> -->
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /.container-fluid -->
+	</nav>
+
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<form role="search">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Search">
+			</div>
+		</form>
+		<ul class="nav menu">
+			<li><a href="/backend/dashboard"><span class="glyphicon glyphicon-dashboard"></span>控制台</a></li>
+			<li><a href="/backend/menu"><span class="glyphicon glyphicon-th"></span>栏目管理</a></li>
+			<li><a href="/backend/article"><span class="glyphicon glyphicon-file"></span>文章管理</a></li>
+			<li class="active"><a href="/backend/banner"><span class="glyphicon glyphicon-picture"></span>广告管理</a></li>
+			<!-- <li><a href="widgets.html"><span class="glyphicon glyphicon-th"></span> Widgets</a></li>
+			<li><a href="charts.html"><span class="glyphicon glyphicon-stats"></span> Charts</a></li>
+			<li><a href="tables.html"><span class="glyphicon glyphicon-list-alt"></span> Tables</a></li>
+			<li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> Forms</a></li>
+			<li><a href="panels.html"><span class="glyphicon glyphicon-info-sign"></span> Alerts &amp; Panels</a></li> -->
+			<li class="parent ">
+				<a href="#">
+					<span class="glyphicon glyphicon-list"></span> Dropdown <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="glyphicon glyphicon-s glyphicon-plus"></em></span>
+				</a>
+				<ul class="children collapse" id="sub-item-1">
+					<li>
+						<a class="" href="#">
+							<span class="glyphicon glyphicon-share-alt"></span> Sub Item 1
+						</a>
+					</li>
+					<li>
+						<a class="" href="#">
+							<span class="glyphicon glyphicon-share-alt"></span> Sub Item 2
+						</a>
+					</li>
+					<li>
+						<a class="" href="#">
+							<span class="glyphicon glyphicon-share-alt"></span> Sub Item 3
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li role="presentation" class="divider"></li>
+			<li><a href="login.html"><span class="glyphicon glyphicon-user"></span> Login Page</a></li>
+		</ul>
+	</div><!--/.sidebar-->
+
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row" style="margin-bottom:10px;">
+			<ol class="breadcrumb">
+				<li><a href="/backend/dashboard"><span class="glyphicon glyphicon-home"></span></a></li>
+				<li><a href="/backend/banner">广告管理</a></li>
+				<li class="active">添加广告</li>
+			</ol>
+		</div><!--/.row-->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<!-- <div class="panel-heading">添加栏目</div> -->
+					<div class="panel-body">
+						<div class="col-md-12">
+							<form role="form">
+								<div class="form-group">
+									<label>广告描述</label>
+									<input name="description" id="description" class="form-control" placeholder="广告描述">
+								</div>
+								<div class="form-group">
+									<label>显示顺序</label>
+									<input type="number" value="0" :min="0" id="sort" class="form-control" name="sort" placeholder="序号越大越靠近前">
+								</div>
+								<div class="form-group">
+									<label>是否显示</label>
+									<div class="radio">
+										<label>
+											<input type="radio" name="is_show" id="optionsRadios1" value="true" checked>是
+										</label>
+									</div>
+									<div class="radio">
+										<label>
+											<input type="radio" name="is_show" id="optionsRadios2" value="false">否
+										</label>
+									</div>
+								</div>
+                                <div class="form-group">
+                                    <label>跳转路径</label>
+                                    <input name="path" id="path" class="form-control" placeholder="不跳转设置成#号" value="#">
+                                </div>
+                                <div class="form-group">
+                                    <label>上传广告图</label>
+                                    <br/>
+                                    <button type="button" class="btn btn-primary" id="uploadPic">点击上传图片</button>
+                                    <div id="appendImg" style="margin-top:20px"></div>
+                                </div>
+								<button type="button" id="button" class="btn btn-primary">添加</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div><!-- /.col-->
+		</div><!-- /.row -->
+
+	</div>	<!--/.main-->
+    <form id="fileForm" method="post" action="/upload" enctype="multipart/form-data">
+        <input type="file" style="display:none;" id="pic" value="" name="pic">
+    </form>
+
+	<script src="/js/jquery-1.11.1.min.js"></script>
+	<script src="/js/jquery.form.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/chart.min.js"></script>
+	<script src="/js/chart-data.js"></script>
+	<script src="/js/easypiechart.js"></script>
+	<script src="/js/easypiechart-data.js"></script>
+	<script src="/js/bootstrap-datepicker.js"></script>
+	<script src="/js/axios.min.js"></script>
+	<script>
+		$('#calendar').datepicker({
+		});
+
+		!function ($) {
+		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){
+		        $(this).find('em:first').toggleClass("glyphicon-minus");
+		    });
+		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script>
+
+	<script>
+		$(function(){
+			$('#button').on('click', function(){
+				var obj = {name:$("#name").val(), sort:$("#sort").val(), is_show:$('input:radio[name="is_show"]:checked').val()}
+				if (obj.is_show == "true") {
+					obj.is_show = true
+				} else {
+					obj.is_show = false
+				}
+				obj.sort = parseInt(obj.sort)
+				axios.post("/backend/menu/add", obj).then((res)=>{
+	                if (res.data.msg == "添加成功") {
+	                    alert("添加成功")
+	                    window.location.href="/backend/menu"
+	                } else {
+	                    alert("添加失败")
+	                }
+	            }).catch((err)=>{
+	                alert(err.data.msg)
+	            })
+			})
+
+            //上传广告图.
+            $('#uploadPic').on('click', function(){
+                $("#pic").click();
+            })
+
+            $("#pic").change(function(){
+                $("#fileForm").ajaxSubmit({
+                    type: "POST",//提交类型
+                    dataType: "json",//返回结果格式
+                    url: '/upload',//请求地址
+                    success: function (data) {//请求成功后的函数
+                        if (data.msg.status == true) {
+                            alert("上传成功")
+                            $('#appendImg').append("<img src="+data.msg.path+" width='100'>")
+                            $('#uploadPic').css("display", "none")
+                        } else {
+                            alert("上传失败")
+                        }
+                    },
+                    error: function (data) {
+                        alert("上传失败")
+                        // layer.msg('上传失败')
+                        // layer.closeAll('loading');
+                    },//请求失败的函数
+                    async: true
+                });
+            })
+		})
+	</script>
+</body>
+
+</html>

@@ -34,5 +34,6 @@ func AutoMigrate() {
 		&base.User{},
 		&base.Menu{},
 		&base.Article{},
+		&base.Banner{},
 	)
 }

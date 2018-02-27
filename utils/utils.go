@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 )
 
 const TIMEFORMAT = "2006-01-02 15:04:05"
@@ -29,8 +30,8 @@ func MD5(str string) string {
 }
 
 //Response 相应请求.
-func Response(w http.ResponseWriter, msg string) {
-	dist := make(map[string]string)
+func Response(w http.ResponseWriter, msg interface{}) {
+	dist := make(map[string]interface{})
 	dist["msg"] = msg
 	b, err := json.Marshal(dist)
 	if err != nil {
@@ -59,4 +60,10 @@ func BindJSON(r *http.Request, obj interface{}) error {
 //Redirect 跳转.
 func Redirect(w http.ResponseWriter, path string) {
 	w.Write([]byte(fmt.Sprintf("<script>window.location.href='%s'</script>", path)))
+}
+
+//FileSuffix 获取文件后缀.
+func FileSuffix(str string) string {
+	sArr := strings.Split(str, ".")
+	return sArr[1]
 }
