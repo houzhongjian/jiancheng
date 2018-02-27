@@ -23,5 +23,12 @@ func HandleDefault(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%+v\n", err)
 		return
 	}
-	t.Execute(w, map[string]interface{}{"menu": menu})
+
+	banner := []*base.Banner{}
+	err = db.JcDB.Model(&base.Banner{}).Where("is_show = ?", true).Order("sort desc").Find(&banner).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		log.Printf("%+v\n", err)
+		return
+	}
+	t.Execute(w, map[string]interface{}{"menu": menu, "banner": banner})
 }

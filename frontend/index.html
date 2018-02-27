@@ -94,12 +94,21 @@
 				<section>
 					<div id="hwslider" class="hwslider">
 						<ul>
-							<li>
+							{{range .banner}}
+								<li>
+									{{if eq .Path "#"}}
+										<a href="{{.Path}}"><img src="{{.Img}}" alt=""></a>
+									{{else}}
+										<a href="{{.Path}}" target="_blank"><img src="{{.Img}}" alt=""></a>
+									{{end}}
+								</li>
+							{{end}}
+							<!-- <li>
 								<a><img src="/images/banner-1.png" alt=""></a>
 							</li>
 							<li>
 								<a><img src="/images/banner-2.png" alt=""></a>
-							</li>
+							</li> -->
 							<!-- <li>
 								<a><img src="/images/banner3.jpg" alt=""></a>
 							</li>
