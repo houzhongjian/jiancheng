@@ -60,3 +60,23 @@ func HandleBannerAdd(w http.ResponseWriter, r *http.Request) {
 	}
 	t.Execute(w, nil)
 }
+
+//HandleBannerDel 删除广告图.
+func HandleBannerDel(w http.ResponseWriter, r *http.Request) {
+	log.Println("HandleBannerDel")
+	msg := base.Banner{}
+	if err := utils.BindJSON(r, &msg); err != nil {
+		log.Printf("%+v\n", err)
+		utils.Response(w, "删除失败")
+		return
+	}
+
+	err := db.JcDB.Model(&base.Banner{}).Delete(&msg).Error
+	if err != nil {
+		log.Printf("%+v\n", err)
+		utils.Response(w, "删除失败")
+		return
+	}
+
+	utils.Response(w, "删除成功")
+}
