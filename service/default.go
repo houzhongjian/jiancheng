@@ -122,3 +122,16 @@ func HandleDefaultArticleDetail(w http.ResponseWriter, r *http.Request) {
 
 	t.Execute(w, map[string]interface{}{"detail": article, "banner": banner, "menu": menu, "menunow": menuNow})
 }
+
+//HandleDefaultAccess 访问记录.
+func HandleDefaultAccess(w http.ResponseWriter, r *http.Request) {
+	log.Println("HandleDefaultAccess")
+	msg := &base.Access{
+		Ip: utils.GetIp(r),
+	}
+	err := db.JcDB.Model(&base.Access{}).Create(&msg).Error
+	if err != nil {
+		log.Printf("%+v\n", err)
+		return
+	}
+}

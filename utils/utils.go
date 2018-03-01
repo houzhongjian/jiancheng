@@ -67,3 +67,10 @@ func FileSuffix(str string) string {
 	sArr := strings.Split(str, ".")
 	return sArr[1]
 }
+
+//GetIp 获取ip.
+func GetIp(r *http.Request) string {
+	ipadd := r.RemoteAddr
+	sArr := strings.Split(ipadd, ":")
+	return sArr[0]
+}

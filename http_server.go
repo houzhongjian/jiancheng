@@ -35,6 +35,7 @@ func HttpServer() {
 	http.HandleFunc("/upload", filter.Validate(service.HandleUpload))
 	http.HandleFunc("/menu", service.HandleDefaultMenu)
 	http.HandleFunc("/article/detail", service.HandleDefaultArticleDetail)
+	http.HandleFunc("/access", service.HandleDefaultAccess)
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", conf.Conf.WebsitePost), nil); err != nil {
 		log.Printf("%+v\n", "端口监听失败")
 	}
