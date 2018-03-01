@@ -67,7 +67,7 @@
 								<a href="index.html">首页</a>
 							</li>
 							{{range .menu}}
-								<li><a href="?menu={{.Id}}">{{.Name}}</a></li>
+								<li><a href="/menu?id={{.Id}}">{{.Name}}</a></li>
 							{{end}}
 							<!-- <li>
 								<a href="#">学历提升</a>
@@ -97,7 +97,7 @@
 							{{range .banner}}
 								<li>
 									{{if eq .Path "#"}}
-										<a href="{{.Path}}"><img src="{{.Img}}" alt=""></a>
+										<a><img src="{{.Img}}" alt=""></a>
 									{{else}}
 										<a href="{{.Path}}" target="_blank"><img src="{{.Img}}" alt=""></a>
 									{{end}}
@@ -241,7 +241,7 @@
 												</ul>
 											</div>
 										</li>
-										<li class="" style="width: 50%;">
+										<li class="active" style="width: 50%;">
 											<div class="swiper-slide honor-lists">
 												<ul class="f-cb">
 													<li>

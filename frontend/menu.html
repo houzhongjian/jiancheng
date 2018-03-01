@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="user-scalable=no,width=device-width, initial-scale=1.0">
+		<meta name="keyword" content="{{.menunow.Name}}">
+		<title>建程教育-{{.menunow.Name}}</title>
+		<!--Common Style Start -->
+
+		<link href="/css/hwslider.css" type="text/css" rel="stylesheet">
+		<link href="/css/common.min.css" type="text/css" rel="stylesheet" />
+		<link href="/css/index.css" type="text/css" rel="stylesheet" />
+		<!--[if lt IE 9]>
+        <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <link href="static/css/IE8.css" rel="stylesheet">
+        <![endif]-->
+		<style>
+            /*body{height:2000px;}*/
+            #service{width:161px;height:290px;position:fixed;top:350px;right:0px; z-index:100;}
+            *html #service{margin-top:258px;position:absolute;top:expression(eval(document.documentElement.scrollTop));}
+            #service li{width:161px;height:60px;}
+            #service li img{float:right;}
+            #service li a{height:49px;float:right;display:block;min-width:47px;max-width:161px;}
+            #service li a .shows{display:block;}
+            #service li a .hides{margin-right:-143px;cursor:pointer;cursor:hand;}
+            #service li a.weixin_area .hides{display:none;position:absolute;right:143px;}
+            #service li a.weixin_area .weixin{display:none;position:absolute;right:0;top:48px}
+			#p2{width:112px;background-color:#A7D2A9;height:47px;margin-left:47px;border:1px solid #8BC48D;text-align:center;line-height:47px}
+            #p3{width:112px;background-color:#EC9890;height:47px;margin-left:47px;border:1px solid #E6776C;text-align:center;line-height:47px}
+            #p1{width:47px;height:49px;float:left}
+            a:hover{text-decoration: none}
+            .content{
+                width: 1000px;
+                padding-top: 30px;
+                padding-bottom: 30px;
+                margin: 0 auto;
+            }
+            .content ul {
+                margin: 0;
+                padding: 0;
+            }
+            .content ul li {
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-top: 20px;
+                width: 980px;
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+                border-bottom: 1px dashed #ccc;
+            }
+            .content ul li:hover{
+                background: #fafafa;
+                border: 1px solid #f4f4f4;
+                border-radius: 3px;
+            }
+            .content ul li h1 {
+                padding-bottom:10px;
+            }
+            .content ul li h1 a:hover {
+                color: #e60014;
+            }
+            .content ul li div {
+                font-size: 15px;
+                color: #666;
+                display: block;
+                line-height: 1.8em;
+            }
+            .read {
+                float: right;
+            }
+        </style>
+		<script type="text/javascript">
+			function browserRedirect() {
+				var sUserAgent = navigator.userAgent.toLowerCase();
+				var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+				var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+				var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+				var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+				var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+				var bIsAndroid = sUserAgent.match(/android/i) == "android";
+				var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+				var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+
+				if(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+					window.location.href = ''; //绝对地址相对路径可能找不到
+				}
+			}
+			browserRedirect();
+		</script>
+	</head>
+
+	<body>
+		<div class="r-doc">
+			<div class="r-hd">
+				<div class="nav r-hd-box f-cb">
+					<div class="nav-brand">
+						<a href="/">
+							<img style="height:62px;" src="/images/logo-tmp.png">
+						</a>
+
+					</div>
+					<div class="nav-lists">
+						<ul class="f-cb">
+							<li>
+								<a href="index.html">首页</a>
+							</li>
+                            {{$id := .menunow.Id}}
+							{{range .menu}}
+                                {{if eq $id .Id}}
+								    <li class="active"><a href="/menu?id={{.Id}}">{{.Name}}</a></li>
+                                {{else}}
+                                    <li><a href="/menu?id={{.Id}}">{{.Name}}</a></li>
+                                {{end}}
+							{{end}}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="r-bd">
+
+				<!--幻灯片 -->
+				<section>
+					<div id="hwslider" class="hwslider">
+						<ul>
+							{{range .banner}}
+								<li style="dashed 1px #d9d9d9">
+									{{if eq .Path "#"}}
+										<a><img src="{{.Img}}" alt=""></a>
+									{{else}}
+										<a href="{{.Path}}" target="_blank"><img src="{{.Img}}" alt=""></a>
+									{{end}}
+								</li>
+							{{end}}
+							<!-- <li>
+								<a><img src="/images/banner-1.png" alt=""></a>
+							</li>
+							<li>
+								<a><img src="/images/banner-2.png" alt=""></a>
+							</li> -->
+							<!-- <li>
+								<a><img src="/images/banner3.jpg" alt=""></a>
+							</li>
+							<li>
+								<a><img src="/images/banner4.jpg" alt=""></a>
+							</li> -->
+						</ul>
+					</div>
+				</section>
+
+			</div>
+            <div class="content">
+                <h3 style="padding-bottom:20px;">当前位置：首页 > {{.menunow.Name}}</h3>
+                {{$le := len .article}}
+                {{if gt $le 0}}
+                <ul>
+                    {{range .article}}
+                        <li>
+                            <h1><a href="/article/detail?id={{.Id}}">{{.Title}}</a></h1>
+                            <div style="font-size:14px;">{{.Description}}</div>
+                            <div style="font-size:14px;color:#555;margin-top:10px;"><span style="color:#e60014;">{{.Author}}</span> 发布于 {{.Create}}</div>
+                        </li>
+                    {{end}}
+                </ul>
+                {{else}}
+                暂无数据
+                {{end}}
+            </div>
+			<div class="r-ft">
+				<div class="m-section foot-box">
+					<div class="m-container">
+						<div class="foot-copyright f-tac" style="border:none;">
+							<p>
+								@乐山建程教育 | 电话：0833-2176840 | 地址：乐山市中区滨江路中段608号靓达公寓2单元15楼
+							</p>
+							<ul class="foot-brand f-cb f-tac">
+								<li>
+									<a>
+										<img src="/images/cnnic.png" height="37" width="102" h="37" w="102">
+									</a>
+								</li>
+								<li>
+									<a>
+										<img border="0" src="/images/webscan.png">
+									</a>
+								</li>
+								<li>
+									<a>
+										<img src="/images/103x37.png">
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="register" class="f-tac registerbox" style="display: none;">
+				<form class="reg-form f-fl" action="aa.php">
+					<div class="reg-box">
+
+						<div class="form-group">
+							<label for="username" class="form-name"></label>
+							<input type="text" id="reg_name" name="name" placeholder="请输入您的称呼" />
+						</div>
+						<div class="form-group">
+							<label for="username" class="form-tel"></label>
+							<input type="phone" id="reg_tel" name="tel" placeholder="请输入接收上课消息的手机号码" />
+						</div>
+						<!-- <div class="form-group">
+							<label for="username" class="form-age"></label>
+							<select id="reg_age" title="请选择您的年龄段">
+								<option value="0" disabled="" selected="">请选择您的年龄段</option>
+								<option value="15">10-15</option>
+								<option value="20">15-20</option>
+								<option value="25">20-25</option>
+								<option value="35">25-35</option>
+								<option value="45">35-45</option>
+								<option value="50">50岁以上</option>
+							</select>
+						</div> -->
+						<div class="form-group f-dn">
+							<input type="hidden" name="wechat" id="reg_wechat" />
+							<input type="hidden" name="mark" id="mark" />
+							<input type="hidden" name="keyword" id="keyword" />
+						</div>
+						<div class="form-group">
+							<button class="btn btn-default" id="send_info">申请免费试听</button>
+						</div>
+					</div>
+				</form>
+				<div class="reg-img f-fr">
+					<img src="/images/register.jpg">
+				</div>
+			</div>
+			<div id="register2" class="f-tac registerbox" style="display: none;">
+				<form class="reg-form f-fl">
+					<div class="reg-box" style="padding-top: 25px;">
+						<div class="title" style="font-size: 16px;">
+							免费注册
+						</div>
+						<div class="form-group">
+							<label for="username" class="form-name"></label>
+							<input type="text" id="sign_name" name="name" placeholder="用户名" />
+						</div>
+						<div class="form-group">
+							<label for="username" class="form-tel"></label>
+							<input type="password" id="sign_pass" name="pass" placeholder="密码" />
+						</div>
+						<div class="form-group">
+							<label for="username" class="form-tel"></label>
+							<input type="password" id="sign_repass" name="repass" placeholder="重复密码" />
+						</div>
+						<div class="form-group">
+							<label for="username" class="form-tel"></label>
+							<input type="phone" id="sign_tel" name="phone" placeholder="请输入接收上课消息的手机号码" />
+						</div>
+						<div class="form-group">
+							<button class="btn btn-default" id="sign_up">立刻注册</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div id="service">
+			<ul>
+				<li>
+					<a href="javascript:void(0)" class="weixin_area">
+						<img src="/images/l02.png" width="47" height="49" class="shows" />
+						<img src="/images/a.png" width="57" height="49" class="hides" />
+						<img src="/images/qrcode.png" width="145" class="weixin" style="display:none;margin:-100px 57px 0 0" />
+					</a>
+				</li>
+				<li>
+					<!-- <a href="http://wpa.qq.com/msgrd?v=3&uin=752818850&site=qq&menu=yes" target="_blank"> -->
+						<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=752818850&amp;site=qq&amp;menu=yes">
+						<div class="hides" style="width:161px;display:none;" id="qq">
+							<div class="hides" id="p1">
+								<img src="/images/ll04.png">
+							</div>
+							<div class="hides" id="p2"><span style="color:#FFF;font-size:13px">752818850</span>
+							</div>
+						</div>
+						<img src="/images/l04.png" width="47" height="49" class="shows" />
+					</a>
+				</li>
+				<li id="tel">
+					<a href="javascript:void(0)">
+						<div class="hides" style="width:161px;display:none;" id="tels">
+							<div class="hides" id="p1">
+								<img src="/images/ll05.png">
+							</div>
+							<div class="hides" id="p3"><span style="color:#FFF;font-size:12px">0833-2176840</span>
+							</div>
+						</div>
+						<img src="/images/l05.png" width="47" height="49" class="shows" />
+					</a>
+				</li>
+				<li id="btn">
+					<a id="top_btn">
+						<div class="hides" style="width:161px;display:none">
+							<img src="/images/ll06.png" width="161" height="49" />
+						</div>
+						<img src="/images/l06.png" width="47" height="49" class="shows" />
+					</a>
+				</li>
+			</ul>
+		</div>
+		<!-- <div class="youfu"> -->
+			<!-- <ul> -->
+				<!-- <li>
+					<a href=""><img src="/images/zxzx1.gif"><br>在线咨询</a>
+				</li>
+				<li>
+					<a id="b1" href=""><img src="/images/whxq.gif"><br>总校咨询</a>
+				</li>
+				<li>
+					<a id="b2" href=""><img src="/images/nmzx.gif"><br>分销咨询</a>
+				</li>
+				<li>
+					<a id="b3" href=""><img src="/images/zxbm.gif"><br>在线报名</a>
+				</li> -->
+				<!-- <li class="b4_1">
+					<a id="b4" href=""><img src="/images/dhzx.gif"><br>电话咨询</a>
+				</li>
+				<li class="hong">
+					<a href=""><img src="/images/dhzx1.gif" style="vertical-align:middle;">15183983574</a>
+				</li> -->
+				<!-- <li class="b4_1">
+					<a id="b4" href=""><img src="/images/dhzx.gif"><br>QQ咨询</a>
+				</li>
+				<li class="hong">
+					<a href=""><img src="/images/dhzx1.gif" style="vertical-align:middle;">021-62743166</a>
+				</li> -->
+				<!-- <li class="gotop">
+					<a href="#top"><img src="/images/zx_bg1.png"><br>返回顶部</a>
+				</li> -->
+			<!-- </ul> -->
+		<!-- </div> -->
+
+		<script src="/js/scripts.min.js"></script>
+		<script src="/js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="/js/jquery.hwslider.min.js"></script>
+
+		<script src="/js/jquery.carousel.js"></script>
+
+		<script>
+			/*banner*/
+			$(function() {
+				$("#hwslider").hwSlider({
+					height: 190,
+					autoPlay: true,
+					arrShow: true,
+					dotShow: true,
+					touch: true
+				});
+				$("#hwslider1").hwSlider({
+					height: 5,
+					autoPlay: true,
+					arrShow: true,
+					dotShow: true,
+					touch: true
+				});
+			});
+		</script>
+		<script>
+			$(document).ready(function() {
+
+				$("#b1").mouseover(function() {
+					$("#b1>img").attr("src", "/images/whxq1.gif");
+				});
+				$("#b1").mouseout(function() {
+					$("#b1>img").attr("src", "/images/whxq.gif");
+				});
+
+				$("#b2").mouseover(function() {
+					$("#b2>img").attr("src", "/images/nmzx1.gif");
+				});
+				$("#b2").mouseout(function() {
+					$("#b2>img").attr("src", "/images/nmzx.gif");
+				});
+
+				$("#b3").mouseover(function() {
+					$("#b3>img").attr("src", "/images/zxbm1.gif");
+				});
+				$("#b3").mouseout(function() {
+					$("#b3>img").attr("src", "/images/zxbm.gif");
+				});
+				$(".b4_1").mouseover(function() {
+					$(".hong").show();
+				});
+				$(".b4_1").mouseout(function() {
+					$(".hong").hide();
+				});
+				$(".hong").mouseover(function() {
+					$(".hong").show();
+				});
+				$(".hong").mouseout(function() {
+					$(".hong").hide();
+				});
+			});
+		</script>
+		<script>
+			Caroursel.init($('.caroursel'))
+		</script>
+		<script type="text/javascript">
+            $(function() {
+                $("#service a").hover(function() {
+                    if ($(this).prop("className") == "weixin_area") {
+                        $(this).children("img.hides").show();
+                    } else {
+                        $(this).children("div.hides").show();
+                        $(this).children("img.shows").hide();
+                        $(this).children("div.hides").animate({marginRight: '0px'}, '0');
+                    }
+                }, function() {
+                    if ($(this).prop("className") == "weixin_area") {
+                        $(this).children("img.hides").hide();
+                    } else {
+                        $(this).children("div.hides").animate({marginRight: '-163px'}, 0, function() {
+                            $(this).hide();
+                            $(this).next("img.shows").show();
+                        });
+                    }
+                });
+
+                $("#top_btn").click(function() {
+                    $("html,body").animate({scrollTop: 0}, 600);
+                });
+
+                //右侧导航 - 二维码
+                $(".weixin_area").hover(function() {
+                    $(this).children(".weixin").show();
+                },function(){
+                    $(this).children(".weixin").hide();
+                })
+            });
+        </script>
+	</body>
+</html>

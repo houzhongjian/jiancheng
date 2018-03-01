@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="user-scalable=no,width=device-width, initial-scale=1.0">
+		<meta name="keyword" content="{{.detail.Keyword}}">
+        <meta name="description" content="{{.detail.Description}}">
+
+		<title>建程教育-{{.detail.Title}}</title>
+		<!--Common Style Start -->
+
+		<!-- <link href="/css/hwslider.css" type="text/css" rel="stylesheet"> -->
+		<link href="/css/common.min.css" type="text/css" rel="stylesheet" />
+		<link href="/css/index.css" type="text/css" rel="stylesheet" />
+		<!-- <script src="https://cdn.bootcss.com/showdown/1.3.0/showdown.min.js"></script> -->
+
+		<!--[if lt IE 9]>
+        <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <link href="static/css/IE8.css" rel="stylesheet">
+        <![endif]-->
+		<style>
+            /*body{height:2000px;}*/
+            #service{width:161px;height:290px;position:fixed;top:350px;right:0px; z-index:100;}
+            *html #service{margin-top:258px;position:absolute;top:expression(eval(document.documentElement.scrollTop));}
+            #service li{width:161px;height:60px;}
+            #service li img{float:right;}
+            #service li a{height:49px;float:right;display:block;min-width:47px;max-width:161px;}
+            #service li a .shows{display:block;}
+            #service li a .hides{margin-right:-143px;cursor:pointer;cursor:hand;}
+            #service li a.weixin_area .hides{display:none;position:absolute;right:143px;}
+            #service li a.weixin_area .weixin{display:none;position:absolute;right:0;top:48px}
+			#p2{width:112px;background-color:#A7D2A9;height:47px;margin-left:47px;border:1px solid #8BC48D;text-align:center;line-height:47px}
+            #p3{width:112px;background-color:#EC9890;height:47px;margin-left:47px;border:1px solid #E6776C;text-align:center;line-height:47px}
+            #p1{width:47px;height:49px;float:left}
+            a:hover{text-decoration: none}
+            .content{
+                width: 1000px;
+                padding-top: 30px;
+                padding-bottom: 30px;
+                margin: 0 auto;
+            }
+			.content .article p {
+				/*padding: */
+				margin-bottom: 18px;
+				font-size: 16px;
+				/*font-size: 18px;*/
+				color: #4d4f53;
+			    letter-spacing: 1px;
+			    line-height: 25px;
+			}
+			.content .article img {
+				width: 100%;
+			}
+			.content .article h1 {
+				padding-bottom: 20px;
+					display: block;
+				    font-size: 2em;
+				    -webkit-margin-before: 0.67em;
+				    -webkit-margin-after: 0.67em;
+				    -webkit-margin-start: 0px;
+				    -webkit-margin-end: 0px;
+				    font-weight: bold;
+			}
+			.content .article h2 {
+				display: block;
+			    font-size: 1.5em;
+			    -webkit-margin-before: 0.83em;
+			    -webkit-margin-after: 0.83em;
+			    -webkit-margin-start: 0px;
+			    -webkit-margin-end: 0px;
+			    font-weight: bold;
+			}
+			.content .article h3 {
+				display: block;
+				    font-size: 1.17em;
+				    -webkit-margin-before: 1em;
+				    -webkit-margin-after: 1em;
+				    -webkit-margin-start: 0px;
+				    -webkit-margin-end: 0px;
+				    font-weight: bold;
+			}
+			.content .article h4 {
+				display: block;
+			    -webkit-margin-before: 1.33em;
+			    -webkit-margin-after: 1.33em;
+			    -webkit-margin-start: 0px;
+			    -webkit-margin-end: 0px;
+			    font-weight: bold;
+			}
+			.content .article h5 {
+				display: block;
+			    font-size: 0.83em;
+			    -webkit-margin-before: 1.67em;
+			    -webkit-margin-after: 1.67em;
+			    -webkit-margin-start: 0px;
+			    -webkit-margin-end: 0px;
+			    font-weight: bold;
+			}
+			.content .article h6 {
+				display: block;
+			    font-size: 0.67em;
+			    -webkit-margin-before: 2.33em;
+			    -webkit-margin-after: 2.33em;
+			    -webkit-margin-start: 0px;
+			    -webkit-margin-end: 0px;
+			    font-weight: bold;
+			}
+            .content ul {
+                margin: 0;
+                padding: 0;
+            }
+            .content ul li {
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-top: 20px;
+                width: 980px;
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+                border-bottom: 1px dashed #ccc;
+            }
+            .content ul li:hover{
+                background: #fafafa;
+                border: 1px solid #f4f4f4;
+                border-radius: 3px;
+            }
+            .content ul li h1 {
+                padding-bottom:10px;
+            }
+            .content ul li h1 a:hover {
+                color: #e60014;
+            }
+            .content ul li div {
+                font-size: 15px;
+                color: #666;
+                display: block;
+                line-height: 1.8em;
+            }
+            .read {
+                float: right;
+            }
+        </style>
+		<script type="text/javascript">
+			function browserRedirect() {
+				var sUserAgent = navigator.userAgent.toLowerCase();
+				var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+				var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+				var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+				var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+				var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+				var bIsAndroid = sUserAgent.match(/android/i) == "android";
+				var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+				var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+
+				if(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+					window.location.href = ''; //绝对地址相对路径可能找不到
+				}
+			}
+			browserRedirect();
+		</script>
+	</head>
+
+	<body>
+		<div class="r-doc">
+			<div class="r-hd">
+				<div class="nav r-hd-box f-cb">
+					<div class="nav-brand">
+						<a href="/">
+							<img style="height:62px;" src="/images/logo-tmp.png">
+						</a>
+
+					</div>
+					<div class="nav-lists">
+						<ul class="f-cb">
+							<li>
+								<a href="index.html">首页</a>
+							</li>
+                            {{$id := .menunow.Id}}
+							{{range .menu}}
+                                {{if eq $id .Id}}
+								    <li class="active"><a href="/menu?id={{.Id}}">{{.Name}}</a></li>
+                                {{else}}
+                                    <li><a href="/menu?id={{.Id}}">{{.Name}}</a></li>
+                                {{end}}
+							{{end}}
+						</ul>
+					</div>
+				</div>
+			</div>
+            <div class="content">
+                <h3 style="padding-bottom:20px;">当前位置：首页 > {{.menunow.Name}} > {{.detail.Title}}</h3>
+                <div class="article">
+                    <h1 align="center">{{.detail.Title}}</h1>
+                    {{.detail.Content}}
+                </div>
+            </div>
+            <!-- <xmp theme="united" style="display:none;">{{.detail.Content}}</xmp>
+            <script src="http://strapdownjs.com/v/0.2/strapdown.js"></script> -->
+			<div class="r-ft">
+				<div class="m-section foot-box">
+					<div class="m-container">
+						<div class="foot-copyright f-tac" style="border:none;">
+							<p>
+								@乐山建程教育 | 电话：0833-2176840 | 地址：乐山市中区滨江路中段608号靓达公寓2单元15楼
+							</p>
+							<ul class="foot-brand f-cb f-tac">
+								<li>
+									<a>
+										<img src="/images/cnnic.png" height="37" width="102" h="37" w="102">
+									</a>
+								</li>
+								<li>
+									<a>
+										<img border="0" src="/images/webscan.png">
+									</a>
+								</li>
+								<li>
+									<a>
+										<img src="/images/103x37.png">
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script src="/js/scripts.min.js"></script>
+		<script src="/js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="/js/jquery.hwslider.min.js"></script>
+
+		<script src="/js/jquery.carousel.js"></script>
+
+		<script>
+			/*banner*/
+			$(function() {
+				$("#hwslider").hwSlider({
+					height: 190,
+					autoPlay: true,
+					arrShow: true,
+					dotShow: true,
+					touch: true
+				});
+				$("#hwslider1").hwSlider({
+					height: 5,
+					autoPlay: true,
+					arrShow: true,
+					dotShow: true,
+					touch: true
+				});
+			});
+		</script>
+		<script>
+			$(document).ready(function() {
+
+				$("#b1").mouseover(function() {
+					$("#b1>img").attr("src", "/images/whxq1.gif");
+				});
+				$("#b1").mouseout(function() {
+					$("#b1>img").attr("src", "/images/whxq.gif");
+				});
+
+				$("#b2").mouseover(function() {
+					$("#b2>img").attr("src", "/images/nmzx1.gif");
+				});
+				$("#b2").mouseout(function() {
+					$("#b2>img").attr("src", "/images/nmzx.gif");
+				});
+
+				$("#b3").mouseover(function() {
+					$("#b3>img").attr("src", "/images/zxbm1.gif");
+				});
+				$("#b3").mouseout(function() {
+					$("#b3>img").attr("src", "/images/zxbm.gif");
+				});
+				$(".b4_1").mouseover(function() {
+					$(".hong").show();
+				});
+				$(".b4_1").mouseout(function() {
+					$(".hong").hide();
+				});
+				$(".hong").mouseover(function() {
+					$(".hong").show();
+				});
+				$(".hong").mouseout(function() {
+					$(".hong").hide();
+				});
+			});
+		</script>
+		<script>
+			Caroursel.init($('.caroursel'))
+		</script>
+		<script type="text/javascript">
+            $(function() {
+                $("#service a").hover(function() {
+                    if ($(this).prop("className") == "weixin_area") {
+                        $(this).children("img.hides").show();
+                    } else {
+                        $(this).children("div.hides").show();
+                        $(this).children("img.shows").hide();
+                        $(this).children("div.hides").animate({marginRight: '0px'}, '0');
+                    }
+                }, function() {
+                    if ($(this).prop("className") == "weixin_area") {
+                        $(this).children("img.hides").hide();
+                    } else {
+                        $(this).children("div.hides").animate({marginRight: '-163px'}, 0, function() {
+                            $(this).hide();
+                            $(this).next("img.shows").show();
+                        });
+                    }
+                });
+
+                $("#top_btn").click(function() {
+                    $("html,body").animate({scrollTop: 0}, 600);
+                });
+
+                //右侧导航 - 二维码
+                $(".weixin_area").hover(function() {
+                    $(this).children(".weixin").show();
+                },function(){
+                    $(this).children(".weixin").hide();
+                })
+            });
+        </script>
+		<script>
+			$(function() {
+				// var converter = new showdown.Converter();
+				// var text      = $('#markcontent').html();
+				// console.log("text:", text)
+				// var html      = converter.makeHtml(text);
+				// $("#markcontent").html(html)
+			});
+		</script>
+	</body>
+
+</html>
