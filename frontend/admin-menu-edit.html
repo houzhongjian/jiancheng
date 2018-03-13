@@ -57,7 +57,7 @@
 			<li><a href="tables.html"><span class="glyphicon glyphicon-list-alt"></span> Tables</a></li>
 			<li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> Forms</a></li>
 			<li><a href="panels.html"><span class="glyphicon glyphicon-info-sign"></span> Alerts &amp; Panels</a></li> -->
-			
+
 		</ul>
 	</div><!--/.sidebar-->
 
@@ -79,19 +79,33 @@
 							<form role="form">
 								<div class="form-group">
 									<label>栏目名称</label>
-									<input name="name" id="name" class="form-control" value="{{.Name}}" placeholder="栏目名称">
-									<input name="id" id="id" type="hidden" value="{{.Id}}">
+									<input name="name" id="name" class="form-control" value="{{.menu.Name}}" placeholder="栏目名称">
+									<input name="id" id="id" type="hidden" value="{{.menu.Id}}">
 								</div>
 
 								<div class="form-group">
+									<label>选择父级</label>
+									{{$pid := .menu.PId}}
+									<select class="form-control" name="p_id" id="p_id">
+										<option value="0">无</option>
+										{{range .list}}
+											{{if eq .Id $pid}}
+												<option value="{{.Id}}" selected>{{.Name}}</option>
+											{{else}}
+												<option value="{{.Id}}">{{.Name}}</option>
+											{{end}}
+										{{end}}
+									</select>
+								</div>
+								<div class="form-group">
 									<label>显示顺序</label>
-									<input type="number"  :min="0" id="sort" class="form-control" name="sort" value="{{.Sort}}" placeholder="序号越大越靠近前">
+									<input type="number"  :min="0" id="sort" class="form-control" name="sort" value="{{.menu.Sort}}" placeholder="序号越大越靠近前">
 								</div>
 								<div class="form-group">
 									<label>是否显示</label>
 									<div class="radio">
 										<label>
-                                            {{$isshow := .IsShow}}
+                                            {{$isshow := .menu.IsShow}}
                                             {{if eq $isshow true}}
 											    <input type="radio" name="is_show" id="optionsRadios1" value="true" checked>是
                                             {{else}}
@@ -149,7 +163,7 @@
 	<script>
 		$(function(){
 			$('#button').on('click', function(){
-				var obj = {id:$("#id").val(), name:$("#name").val(), sort:$("#sort").val(), is_show:$('input:radio[name="is_show"]:checked').val()}
+				var obj = {p_id:$('#p_id').val(), id:$("#id").val(), name:$("#name").val(), sort:$("#sort").val(), is_show:$('input:radio[name="is_show"]:checked').val()}
 				if (obj.is_show == "true") {
 					obj.is_show = true
 				} else {
@@ -157,6 +171,7 @@
 				}
 				obj.sort = parseInt(obj.sort)
 				obj.id = parseInt(obj.id)
+				obj.p_id = parseInt(obj.p_id)
 				axios.post("/backend/menu/edit", obj).then((res)=>{
 	                if (res.data.msg == "更新成功") {
 	                    alert("更新成功")

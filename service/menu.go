@@ -18,15 +18,20 @@ func HandleMenu(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%+v\n", err)
 		return
 	}
-	list := []*base.Menu{}
-	err = db.JcDB.Model(&base.Menu{}).Order("sort desc").Find(&list).Error
+	list := []*base.QueryMenu{}
+	err = db.JcDB.Model(&base.Menu{}).Where("p_id = ?", 0).Order("sort desc").Find(&list).Error
 	if err != nil {
 		log.Printf("%+v\n", err)
 		return
 	}
 	for _, v := range list {
-		v.Create = v.CreatedAt.Format(utils.TIMEFORMAT)
-		v.Update = v.UpdatedAt.Format(utils.TIMEFORMAT)
+		menuChild := []*base.Menu{}
+		err = db.JcDB.Model(&base.Model{}).Where("p_id = ?", v.Id).Order("sort desc").Find(&menuChild).Error
+		if err != nil && err != gorm.ErrRecordNotFound {
+			log.Printf("%+v\n", err)
+			return
+		}
+		v.MenuList = menuChild
 	}
 	t.Execute(w, map[string]interface{}{"list": list})
 }
@@ -57,12 +62,18 @@ func HandleMenuAdd(w http.ResponseWriter, r *http.Request) {
 		utils.Response(w, "添加成功")
 		return
 	}
+	list := []*base.QueryMenu{}
+	err := db.JcDB.Model(&base.Menu{}).Where("p_id = ?", 0).Order("sort desc").Find(&list).Error
+	if err != nil {
+		log.Printf("%+v\n", err)
+		return
+	}
 	t, err := utils.Display("admin-menu-add")
 	if err != nil {
 		log.Printf("%+v\n", err)
 		return
 	}
-	t.Execute(w, nil)
+	t.Execute(w, map[string]interface{}{"list": list})
 }
 
 //HandleMenuEdit 栏目编辑.
@@ -79,7 +90,7 @@ func HandleMenuEdit(w http.ResponseWriter, r *http.Request) {
 			utils.Response(w, "栏目名称不能为空")
 			return
 		}
-		data := map[string]interface{}{"name": menu.Name, "sort": menu.Sort, "is_show": menu.IsShow}
+		data := map[string]interface{}{"name": menu.Name, "sort": menu.Sort, "is_show": menu.IsShow, "p_id": menu.PId}
 		err := db.JcDB.Model(&base.Menu{}).Where("id = ?", menu.Id).Updates(data).Error
 		if err != nil {
 			log.Printf("%+v\n", err)
@@ -100,12 +111,18 @@ func HandleMenuEdit(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%+v\n", err)
 		return
 	}
+	list := []*base.QueryMenu{}
+	err = db.JcDB.Model(&base.Menu{}).Order("sort desc").Find(&list).Error
+	if err != nil {
+		log.Printf("%+v\n", err)
+		return
+	}
 	t, err := utils.Display("admin-menu-edit")
 	if err != nil {
 		log.Printf("%+v\n", err)
 		return
 	}
-	t.Execute(w, menu)
+	t.Execute(w, map[string]interface{}{"list": list, "menu": menu})
 }
 
 //HandleMenuDel 删除栏目.

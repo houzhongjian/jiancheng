@@ -57,7 +57,7 @@
 			<li><a href="tables.html"><span class="glyphicon glyphicon-list-alt"></span> Tables</a></li>
 			<li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> Forms</a></li>
 			<li><a href="panels.html"><span class="glyphicon glyphicon-info-sign"></span> Alerts &amp; Panels</a></li> -->
-			
+
 		</ul>
 	</div><!--/.sidebar-->
 
@@ -82,6 +82,15 @@
 									<input name="name" id="name" class="form-control" placeholder="栏目名称">
 								</div>
 
+								<div class="form-group">
+									<label>选择父级</label>
+									<select class="form-control" name="p_id" id="p_id">
+										<option value="0">无</option>
+										{{range .list}}
+											<option value="{{.Id}}">{{.Name}}</option>
+										{{end}}
+									</select>
+								</div>
 								<div class="form-group">
 									<label>显示顺序</label>
 									<input type="number" value="0" :min="0" id="sort" class="form-control" name="sort" placeholder="序号越大越靠近前">
@@ -139,13 +148,14 @@
 	<script>
 		$(function(){
 			$('#button').on('click', function(){
-				var obj = {name:$("#name").val(), sort:$("#sort").val(), is_show:$('input:radio[name="is_show"]:checked').val()}
+				var obj = {p_id:$('#p_id').val(), name:$("#name").val(), sort:$("#sort").val(), is_show:$('input:radio[name="is_show"]:checked').val()}
 				if (obj.is_show == "true") {
 					obj.is_show = true
 				} else {
 					obj.is_show = false
 				}
 				obj.sort = parseInt(obj.sort)
+				obj.p_id = parseInt(obj.p_id)
 				axios.post("/backend/menu/add", obj).then((res)=>{
 	                if (res.data.msg == "添加成功") {
 	                    alert("添加成功")
