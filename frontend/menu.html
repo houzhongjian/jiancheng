@@ -35,12 +35,27 @@
                 padding-top: 30px;
                 padding-bottom: 30px;
                 margin: 0 auto;
+				clear: both;
             }
-            .content ul {
+			.content .menu_child {
+				width: 200px;
+				float: left;
+				/*height: auto;*/
+			}
+			.content .menu_child ul li .menu_child_a:hover {
+				background: #f0f0f0;
+			}
+			.content .content_article {
+				width: 700px;
+				float: right;
+				/*height: 1000px ;*/
+			}
+
+            .content .content_article ul {
                 margin: 0;
                 padding: 0;
             }
-            .content ul li {
+            .content .content_article ul li {
                 padding-left: 10px;
                 padding-right: 10px;
                 padding-top: 20px;
@@ -49,18 +64,18 @@
                 padding-bottom: 10px;
                 border-bottom: 1px dashed #ccc;
             }
-            .content ul li:hover{
+            .content .content_article ul li:hover{
                 background: #fafafa;
                 border: 1px solid #f4f4f4;
                 border-radius: 3px;
             }
-            .content ul li h1 {
+            .content .content_article ul li h1 {
                 padding-bottom:10px;
             }
-            .content ul li h1 a:hover {
+            .content .content_article ul li h1 a:hover {
                 color: #e60014;
             }
-            .content ul li div {
+            .content .content_article ul li div {
                 font-size: 15px;
                 color: #666;
                 display: block;
@@ -117,10 +132,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="r-bd">
+			<!-- <div class="r-bd"> -->
 
 				<!--幻灯片 -->
-				<section>
+				<!-- <section>
 					<div id="hwslider" class="hwslider">
 						<ul>
 							{{range .banner}}
@@ -131,7 +146,7 @@
 										<a href="{{.Path}}" target="_blank"><img src="{{.Img}}" alt=""></a>
 									{{end}}
 								</li>
-							{{end}}
+							{{end}} -->
 							<!-- <li>
 								<a><img src="/images/banner-1.png" alt=""></a>
 							</li>
@@ -144,12 +159,23 @@
 							<li>
 								<a><img src="/images/banner4.jpg" alt=""></a>
 							</li> -->
-						</ul>
+						<!-- </ul>
 					</div>
 				</section>
 
-			</div>
+			</div> -->
             <div class="content">
+				<div class="menu_child">
+					<span style="width:170px;height:45px;float:left;line-height:45px;color:#ffffff;padding-left:30px; background:#1e7fd3;font-size:18px;margin-bottom:10px;">全部课程分类</span>
+					<ul>
+						{{range .menu_child}}
+							<li style="width:200px;height:45px;float:left;line-height:45px;background:#fafafa;font-size:16px;border:1px solid #ffffff;">
+								<a class="menu_child_a" href="/menu?id={{.PId}}&child={{.Id}}" style="display:block;width:170px;height:45px;color:#323232;padding-left:30px;">{{.Name}}</a>
+							</li>
+						{{end}}
+					</ul>
+				</div>
+				<div class="content_article">
                 <h3 style="padding-bottom:20px;">当前位置：首页 > {{.menunow.Name}}</h3>
                 {{$le := len .article}}
                 {{if gt $le 0}}
@@ -165,8 +191,9 @@
                 {{else}}
                 暂无数据
                 {{end}}
+			</div>
             </div>
-			<div class="r-ft">
+			<div class="r-ft" style="clear:both;">
 				<div class="m-section foot-box">
 					<div class="m-container">
 						<div class="foot-copyright f-tac" style="border:none;">

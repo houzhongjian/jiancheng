@@ -1,8 +1,10 @@
 package service
 
 import (
+	"database/sql"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/houzhongjian/jiancheng/base"
 	"github.com/houzhongjian/jiancheng/db"
@@ -18,7 +20,7 @@ func HandleDefault(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	menu := []*base.Menu{}
-	err = db.JcDB.Model(&base.Menu{}).Where("is_show = ?", true).Order("sort desc").Find(&menu).Error
+	err = db.JcDB.Model(&base.Menu{}).Where("is_show = ? and p_id = ?", true, 0).Order("sort desc").Find(&menu).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		log.Printf("%+v\n", err)
 		return
@@ -42,7 +44,7 @@ func HandleDefaultMenu(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	menu := []*base.Menu{}
-	err = db.JcDB.Model(&base.Menu{}).Where("is_show = ?", true).Order("sort desc").Find(&menu).Error
+	err = db.JcDB.Model(&base.Menu{}).Where("is_show = ? and p_id = ?", true, 0).Order("sort desc").Find(&menu).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		log.Printf("%+v\n", err)
 		return
@@ -63,8 +65,39 @@ func HandleDefaultMenu(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var mId []int64
+	// childId := r.FormValue("child")
+	if len(r.FormValue("child")) > 0 {
+		n, err := strconv.Atoi(r.FormValue("child"))
+		if err != nil {
+			log.Printf("%+v\n", err)
+			return
+		}
+		mId = append(mId, int64(n))
+	} else {
+		//获取当前一级栏目下的所有文章.
+		rows, err := db.JcDB.Table("menu").Select("id").Where("p_id = ? and is_show = ?", r.FormValue("id"), true).Rows()
+		if err != nil {
+			log.Printf("%+v\n", err)
+			return
+		}
+
+		for rows.Next() {
+			var num sql.NullInt64
+			err = rows.Scan(&num)
+			if err != nil {
+				log.Printf("%+v\n", err)
+				return
+			}
+
+			if num.Valid {
+				mId = append(mId, num.Int64)
+			}
+		}
+	}
+
 	article := []*base.Article{}
-	err = db.JcDB.Model(&base.Article{}).Where("menu_id = ?", menuId).Order("id desc").Find(&article).Error
+	err = db.JcDB.Model(&base.Article{}).Where("menu_id in (?)", mId).Order("id desc").Find(&article).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		log.Printf("%+v\n", err)
 		return
@@ -73,7 +106,15 @@ func HandleDefaultMenu(w http.ResponseWriter, r *http.Request) {
 		v.Create = v.CreatedAt.Format(utils.TIMEFORMAT)
 		v.Update = v.UpdatedAt.Format(utils.TIMEFORMAT)
 	}
-	t.Execute(w, map[string]interface{}{"menu": menu, "banner": banner, "menunow": menuNow, "article": article})
+
+	menuChild := []*base.Menu{}
+	err = db.JcDB.Model(&base.Model{}).Where("p_id = ? and is_show = ?", menuId, true).Order("sort desc").Find(&menuChild).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		log.Printf("%+v\n", err)
+		return
+	}
+
+	t.Execute(w, map[string]interface{}{"menu": menu, "banner": banner, "menunow": menuNow, "article": article, "menu_child": menuChild})
 }
 
 //HandleDefaultArticleDetail 文章详细.
